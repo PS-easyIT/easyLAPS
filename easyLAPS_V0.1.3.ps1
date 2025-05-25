@@ -470,9 +470,9 @@ function Show-LAPSForm {
 
     # (3) XAML laden und GUI-Elemente referenzieren
     try {
-        $reader = [System.IO.StringReader]::new($xaml)
-$xmlReader = [System.Xml.XmlReader]::Create($reader)
-$window = [Windows.Markup.XamlReader]::Load($xmlReader)
+        $reader = [System.IO.StringReader]::new($XAML)
+        $xmlReader = [System.Xml.XmlReader]::Create($reader)
+        $window = [Windows.Markup.XamlReader]::Load($xmlReader)
     }
     catch {
         $errorMsg = "Fehler beim Laden der Benutzeroberfläche: $($_.Exception.Message)"
