@@ -348,7 +348,7 @@ function Show-LAPSForm {
     }
 
     # (2) XAML Definition für die GUI
-    [xml]$XAML = @"
+    $XAML = @"
 <Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="$appName" Height="900" Width="1200" MinHeight="600" MinWidth="800"
@@ -470,9 +470,15 @@ function Show-LAPSForm {
 
     # (3) XAML laden und GUI-Elemente referenzieren
     try {
-        $reader = [System.IO.StringReader]::new($XAML)
-        $xmlReader = [System.Xml.XmlReader]::Create($reader)
-        $window = [Windows.Markup.XamlReader]::Load($xmlReader)
+        # XAML-Text in XML-Objekt konvertieren
+        [xml]$xamlObject = $XAML
+        # Namespace-Manager für XPath-Abfragen erstellen
+        $namespace = New-Object System.Xml.XmlNamespaceManager($xamlObject.NameTable)
+        $namespace.AddNamespace("x", "http://schemas.microsoft.com/winfx/2006/xaml")
+        
+        # XAML in Objekt umwandeln
+        $reader = New-Object System.Xml.XmlNodeReader($xamlObject)
+        $window = [Windows.Markup.XamlReader]::Load($reader)
     }
     catch {
         $errorMsg = "Fehler beim Laden der Benutzeroberfläche: $($_.Exception.Message)"
