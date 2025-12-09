@@ -39,8 +39,6 @@ $script:ScriptInfo = @{
     Author = "easyIT"
     ThemeColor = "#0078D7"
     LastUpdate = (Get-Date -Format "yyyy-MM-dd")
-    Company = "easyIT GmbH"
-    Website = "https://www.easyit.de"
     Description = "Local Admin Password Solution fuer Windows-Umgebungen"
     Copyright = "© $(Get-Date -Format 'yyyy') easyIT GmbH"
 }
